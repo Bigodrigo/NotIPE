@@ -1,4 +1,4 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+Estou tentando criar um Web Client para conectar com as notificações de um App!
 
-My Blog created with this Tutorial is at:
-https://nextjs-blog-two-liart-72.vercel.app/
+Nesse momento adicionei o TailWind para configurar o CSS e criei uma página de Inscrição!
+Nos próximos passos, preciso arrumar o formulário para criar contas no FB, a partir disso, montar o acesso dos usuários para só então conectar com o Not!!!
