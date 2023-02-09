@@ -11,16 +11,9 @@ function DashboardPage ({segurados}) {
           <h2 className="text-2xl font-semibold">Banco de Usuários</h2>
           <ul>
           {segurados.map((segurado) => 
-              (<li key={segurado.matricula}>{segurado.name}</li>)
+              (<li key={segurado.matricula} className="text-center p-2"><button>{segurado.name}</button></li>)
           )}
           </ul>
-        <ul>
-          {/* {segurado.map((item) => (
-            <li>
-              <p>{item.name}</p>
-            </li>
-          ))} */}
-        </ul>
         </div>
       </div>
     </ProtectedRoute>
@@ -30,12 +23,8 @@ function DashboardPage ({segurados}) {
 export async function getStaticProps() {
   const q = query(collectionGroup(db,'Users'));
   const querySnapshot = await getDocs(q);
-  // const res = await fetch('https://.../posts')
-  // const posts = await res.json()
   const segurados = [];
-  //const querySnapshot = await getDocs(collection(db,'Users'));
   querySnapshot.forEach((doc) => {
-      //console.log(doc.id, " => ", doc.data());
       let r = doc.data()
       const userObject = {
         email: r.email,

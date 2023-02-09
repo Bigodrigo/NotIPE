@@ -26,11 +26,9 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
           <ul className="text-lg sm:flex">
             <>
               {menuItems.map((item) => (
-                <li key={item.id} className="md:flex-row">
+                <li key={item.id} className="md:flex-row p-2">
                   <Link href={item?.link} className="text-blue-800 hover:text-blue-900 transition">
-
                       {item?.name}
-
                   </Link>
                 </li>
               ))}

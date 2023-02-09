@@ -22,8 +22,8 @@ const LoginPage = () => {
   const onSubmit = async (data: LoginType) => {
     try {
       await logIn(data.email, data.password);
-      router.push("/dashboard");
-      //router.push("/pesquisa");
+      //router.push("/dashboard");
+      router.push("/pesquisa");
     } catch (error: any) {
       console.log(error.message);
     }
