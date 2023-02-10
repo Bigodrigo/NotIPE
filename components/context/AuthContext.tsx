@@ -55,8 +55,14 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     return matricula;
   };
 
+  const [{ email, name, password }, setCurrentUser] = useState({
+    email:'',
+    name:'',
+    password:'',
+});
+
   return (
-    <AuthContext.Provider value={{ user, signUp, logIn, logOut, changeMatricula }}>
+    <AuthContext.Provider value={{ user, signUp, logIn, logOut, changeMatricula, email, name, password, setCurrentUser }}>
       {loading ? null : children}
     </AuthContext.Provider>
   );

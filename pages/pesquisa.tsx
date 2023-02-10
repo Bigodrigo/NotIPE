@@ -10,7 +10,7 @@ import Mensagens from "../components/mensagens";
 function PesquisaPage ({segurado}) {
   const [mensagens, setMensagens] = useState(false)
   const [isLoading, setLoading] = useState(false)
-  const { changeMatricula } = useAuth();
+  const { changeMatricula, setCurrentUser } = useAuth();
   //const router = useRouter();
   interface MatriculaType {
     matricula: string;
@@ -29,16 +29,13 @@ function PesquisaPage ({segurado}) {
         const matricula = await changeMatricula(data)
         const docRef = doc(db,'Users',matricula.matricula);
         const docSnap = await getDoc(docRef);
-        const segurado = [];
-            let r = docSnap.data()
-            console.log(r)
-            const userObject = {
-              email: r.email,
-              matricula: r.matricula,
-              name: r.name,
-              password:r.password,
-          };
-          segurado.push(userObject);
+          let r = docSnap.data()
+          console.log(r)
+          setCurrentUser({
+            email: r.email,
+            name: r.name,
+            password:r.password,
+            });
           setMensagens(true)      
       // return {
       //   props: {
@@ -85,7 +82,7 @@ function PesquisaPage ({segurado}) {
               </div>
             </div>
           </div>
-          { mensagens ? <Mensagens /> : <p>Loading...</p> }
+          { mensagens ? <Mensagens /> : <p> </p> }
         </form>
       </FormProvider>
     </ProtectedRoute>
