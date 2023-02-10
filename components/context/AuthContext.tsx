@@ -18,6 +18,7 @@ export const useAuth = () => useContext<any>(AuthContext);
 
 export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<UserType>({ email: null, uid: null });
+  const [matricula, setMatricula] = useState<string>(null)
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -49,8 +50,13 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     await signOut(auth);
   };
 
+  const changeMatricula = async (matricula: string) => {
+    setMatricula(matricula)
+    return matricula;
+  };
+
   return (
-    <AuthContext.Provider value={{ user, signUp, logIn, logOut }}>
+    <AuthContext.Provider value={{ user, signUp, logIn, logOut, changeMatricula }}>
       {loading ? null : children}
     </AuthContext.Provider>
   );

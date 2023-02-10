@@ -20,7 +20,7 @@ export default function Home({ allPostsData }) {
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Consultar Situação ou Enviar mensagens?</h2>
         <div>
-          <p>Banco de Usuários</p>
+          <Link href="/pesquisa">Banco de Usuários</Link>
         </div>
       </section>
     </Layout>

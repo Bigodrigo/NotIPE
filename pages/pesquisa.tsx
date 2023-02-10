@@ -3,9 +3,15 @@ import { FormProvider, useForm } from "react-hook-form";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../components/Firebase/firebase";
+import { useAuth } from "../components/context/AuthContext";
+import Mensagens from "../components/mensagens";
 //aproveitar q ja tem context e empurrar o usuário?!?! A matricula da pessoa?!
 
 function PesquisaPage ({segurado}) {
+  const [mensagens, setMensagens] = useState(false)
+  const [isLoading, setLoading] = useState(false)
+  const { changeMatricula } = useAuth();
+  //const router = useRouter();
   interface MatriculaType {
     matricula: string;
   }
@@ -19,14 +25,36 @@ function PesquisaPage ({segurado}) {
 
     const onSubmit = async (data: MatriculaType) => {
       try {
-        await fetchUser(matricula);
-        //router.push("/mensagens");
+        setLoading(true)
+        const matricula = await changeMatricula(data)
+        const docRef = doc(db,'Users',matricula.matricula);
+        const docSnap = await getDoc(docRef);
+        const segurado = [];
+            let r = docSnap.data()
+            console.log(r)
+            const userObject = {
+              email: r.email,
+              matricula: r.matricula,
+              name: r.name,
+              password:r.password,
+          };
+          segurado.push(userObject);
+          setMensagens(true)      
+      // return {
+      //   props: {
+      //     segurado,
+      //   },
+      //   // Next.js will attempt to re-generate the page:
+      //   // - When a request comes in
+      //   // - At most once every 10 seconds
+      //   revalidate: 10, // In seconds
+      // }
       } catch (error: any) {
         console.log(error.message);
       }
     };
     
-  
+
   return (
     <ProtectedRoute>
       <FormProvider {...methods}>
@@ -57,37 +85,11 @@ function PesquisaPage ({segurado}) {
               </div>
             </div>
           </div>
+          { mensagens ? <Mensagens /> : <p>Loading...</p> }
         </form>
       </FormProvider>
     </ProtectedRoute>
   );
 };
 
-export async function fetchUser(matricula) {
-  //const q = query(collectionGroup(db,'Users'));
-  const docRef = doc(db,'Users', matricula);
-  //const querySnapshot = await getDocs(q);
-  const docSnap = await getDoc(docRef);
-  const segurado = [];
-  //docSnap.forEach((doc) => {
-      let r = docSnap.data()
-      const userObject = {
-        email: r.email,
-        matricula: r.matricula,
-        name: r.name,
-        password:r.password,
-    };
-    segurado.push(userObject);
-  //});
-  
-  return {
-    props: {
-      segurado,
-    },
-    // Next.js will attempt to re-generate the page:
-    // - When a request comes in
-    // - At most once every 10 seconds
-    revalidate: 10, // In seconds
-  }
-}
 export default PesquisaPage;
