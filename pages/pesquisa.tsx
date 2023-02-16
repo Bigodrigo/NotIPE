@@ -6,6 +6,8 @@ import { db } from "../components/Firebase/firebase";
 import { useAuth } from "../components/context/AuthContext";
 import Mensagens from "../components/mensagens";
 //aproveitar q ja tem context e empurrar o usuário?!?! A matricula da pessoa?!
+import { saveMessagingDeviceToken } from "../components/Firebase/messaging"
+import admin from 'firebase-admin'
 
 function PesquisaPage ({segurado}) {
   const [mensagens, setMensagens] = useState(false)
@@ -23,11 +25,24 @@ function PesquisaPage ({segurado}) {
       formState: { errors },
     } = methods;
 
+    const mandaMensagem = async function () {
+      fetch('/api/tryFirebaseAdmin')
+          .then((res) => {
+              const data = res.json()
+              console.log('Mensagem Enviada')
+              console.log(data)
+          }).catch((e) => {
+              console.log(e)
+          })
+  }
+
     const onSubmit = async (data: MatriculaType) => {
       try {
         setLoading(true)
         const matricula = await changeMatricula(data)
+        //console.log(matricula)
         const docRef = doc(db,'Users',matricula.matricula);
+        console.log(matricula.matricula)
         const docSnap = await getDoc(docRef);
           let r = docSnap.data()
           console.log(r)
@@ -36,7 +51,20 @@ function PesquisaPage ({segurado}) {
             name: r.name,
             password:r.password,
             });
-          setMensagens(true)      
+          setMensagens(true)
+          mandaMensagem();
+          saveMessagingDeviceToken(matricula.matricula);   
+          // const message = 'Teste com o João!';
+          // const payload = {
+          //   token: "eVkOSNUeRT6zNO3fxZQzS3:APA91bFhYSdoEeHLHV_eQq2nQcQ7NGrAHJzPIuppbojQ5uDe5JTlsVfrWH9wI_nUsy2RzulZcB2XUa12uufs7PK8dyOVgGL2eVOzZ7MCBGICRqmvsD69wTEhYhWaym3Dctqjeqx_5x9m",
+          //   notification : {
+          //     title: 'Confia!',
+          //     body: message,
+          //   }
+          // }
+          // admin.messaging().send(payload).then(response => {
+          //   console.log('Mandou!!')
+          // })   
       // return {
       //   props: {
       //     segurado,

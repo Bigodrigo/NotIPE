@@ -4,8 +4,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-
-//import { getMessaging, getToken } from "firebase/messaging";
+import { getMessaging, getToken, isSupported } from "firebase/messaging";
 //import { getMessaging } from "firebase/messaging/sw";
 import { useState } from "react";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -26,7 +25,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore();
 // Initialize Firebase Cloud Messaging and get a reference to the service
-//const messaging = getMessaging(app);
+//Call bt await messaging () everytime a msg is needed!
+const messaging = async () => await isSupported() && getMessaging(app);
 // messaging.requestPermission()
 // .then(function() {
 //   console.log('Have permission');
@@ -44,4 +44,4 @@ const db = getFirestore();
 //     }})}
 
 
-export { app, db, auth }
+export { app, db, auth, messaging }

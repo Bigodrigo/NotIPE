@@ -6,3 +6,5 @@ Nos próximos passos, preciso arrumar o formulário para criar contas no FB, a p
 14/02 - Tive alguns problemas tentando fazer as conexões com o FCM, provavelmente instalei coisas desnecessárias como firebase admin e hosting, talvez tire em outro momento!
 Agora estou acompanhando um vídeo bem completo da própria equipe do FB:
 https://www.youtube.com/watch?v=P51dI2y7QHA
+
+Um possível problema é o firebase deploy nos 16 min!!
