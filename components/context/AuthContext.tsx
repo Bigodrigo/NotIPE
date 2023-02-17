@@ -6,6 +6,9 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth } from "../Firebase/firebase";
+import { getDoc, collection, doc, setDoc, Timestamp } from "firebase/firestore";
+import { db } from "../Firebase/firebase";
+import { User, userConverter } from "../Firebase/converter";
 
 interface UserType {
   email: string | null;
@@ -38,11 +41,36 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   }, []);
 
   const signUp = (email: string, password: string) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+    createUserWithEmailAndPassword(auth, email, password)
+    .then(async(userCredencial) => {
+      let user = userCredencial.user;
+      const uid = user.uid;
+      console.log(uid)
+      const docRef = doc(db,'user',uid).withConverter(userConverter)
+      await setDoc(docRef, new User(email, matricula))
+    })
+    return
   };
 
   const logIn = (email: string, password: string) => {
-    return signInWithEmailAndPassword(auth, email, password);
+    signInWithEmailAndPassword(auth, email, password).then(async(userCredential) => {
+      let user = userCredential.user;
+          const uid = user.uid;
+          const docRef = doc(db,uid,'Infos').withConverter(userConverter)
+          const testeSnap = await getDoc(docRef);
+          //console.log(uid, 'Precisa ter mudado!!')
+          if (testeSnap.exists()) {
+            const user = testeSnap.data();
+            //console.log(user.toString());
+            // setCurrentUser({
+            // email: user.email,
+            // name: user.name,
+            // password: user.password,
+            // uid: user.uid,
+            // });
+          }
+        })
+    return;
   };
 
   const logOut = async () => {

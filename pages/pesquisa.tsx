@@ -41,15 +41,15 @@ function PesquisaPage ({segurado}) {
         setLoading(true)
         const matricula = await changeMatricula(data)
         //console.log(matricula)
-        const docRef = doc(db,'Users',matricula.matricula);
+        const docRef = doc(db,'users',matricula.matricula);
         console.log(matricula.matricula)
         const docSnap = await getDoc(docRef);
           let r = docSnap.data()
           console.log(r)
           setCurrentUser({
             email: r.email,
-            name: r.name,
-            password:r.password,
+            // name: r.name,
+            // password:r.password,
             });
           setMensagens(true)
           mandaMensagem();

@@ -3,12 +3,13 @@ importScripts('https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js');
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCVu09He75tJEA3PP8dCBwU0LYZYNFh0TM",
-    authDomain: "nextnotipe.firebaseapp.com",
-    projectId: "nextnotipe",
-    storageBucket: "nextnotipe.appspot.com",
-    messagingSenderId: "871624826918",
-    appId: "1:871624826918:web:5dee10aec39711057f46e7"
+    apiKey: "AIzaSyBgQ4ibN07z3O8KMaLtxhpVTYHV7Xq0lwY",
+    authDomain: "ipesaudeapp.firebaseapp.com",
+    projectId: "ipesaudeapp",
+    storageBucket: "ipesaudeapp.appspot.com",
+    messagingSenderId: "1096335689164",
+    appId: "1:1096335689164:web:e4a768e845b1db731d0969",
+    measurementId: "G-C0LYQRRZ5X"
   };
 
 firebase.initializeApp(firebaseConfig);

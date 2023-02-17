@@ -2,9 +2,6 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useAuth } from "../components/context/AuthContext";
 import { useRouter } from "next/router";
-import { addDoc, collection, doc, setDoc, Timestamp } from "firebase/firestore";
-import { db } from "../components/Firebase/firebase";
-import { User, userConverter } from "../components/Firebase/converter";
 
 interface SignupType {
   email: string;
@@ -26,8 +23,8 @@ const SignupPage = () => {
     try {
       await signUp(data.email, data.password);
       router.push("/dashboard");
-      const docRef = doc(db,'Users',data.matricula).withConverter(userConverter)
-      await setDoc(docRef, new User(data.email,data.name,data.password,data.matricula))
+      // const docRef = doc(db,'Users',data.matricula).withConverter(userConverter)
+      // await setDoc(docRef, new User(data.email,data.name,data.password,data.matricula))
     } catch (error: any) {
       console.log(error.message);
     }
