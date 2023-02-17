@@ -25,17 +25,6 @@ function PesquisaPage ({segurado}) {
       formState: { errors },
     } = methods;
 
-    const mandaMensagem = async function () {
-      fetch('/api/tryFirebaseAdmin')
-          .then((res) => {
-              const data = res.json()
-              console.log('Mensagem Enviada')
-              console.log(data)
-          }).catch((e) => {
-              console.log(e)
-          })
-  }
-
     const onSubmit = async (data: MatriculaType) => {
       try {
         setLoading(true)
@@ -48,12 +37,12 @@ function PesquisaPage ({segurado}) {
           console.log(r)
           setCurrentUser({
             email: r.email,
-            // name: r.name,
-            // password:r.password,
+            mat: r.mat,
+            token:r.token,
             });
           setMensagens(true)
-          mandaMensagem();
-          saveMessagingDeviceToken(matricula.matricula);   
+          //mandaMensagem();
+          //saveMessagingDeviceToken(matricula.matricula);   
           // const message = 'Teste com o João!';
           // const payload = {
           //   token: "eVkOSNUeRT6zNO3fxZQzS3:APA91bFhYSdoEeHLHV_eQq2nQcQ7NGrAHJzPIuppbojQ5uDe5JTlsVfrWH9wI_nUsy2RzulZcB2XUa12uufs7PK8dyOVgGL2eVOzZ7MCBGICRqmvsD69wTEhYhWaym3Dctqjeqx_5x9m",
@@ -110,9 +99,9 @@ function PesquisaPage ({segurado}) {
               </div>
             </div>
           </div>
-          { mensagens ? <Mensagens /> : <p> </p> }
         </form>
       </FormProvider>
+          { mensagens ? <Mensagens /> : <p> </p> }
     </ProtectedRoute>
   );
 };

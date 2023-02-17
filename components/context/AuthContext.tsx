@@ -83,14 +83,16 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     return matricula;
   };
 
-  const [{ email, name, password }, setCurrentUser] = useState({
+  const [{ email, mat, token }, setCurrentUser] = useState({
     email:'',
-    name:'',
-    password:'',
-});
+    mat:'',
+    token:'',
+  });
+
+  const [mensagem, setMensagem] = useState<string>('Testando!')
 
   return (
-    <AuthContext.Provider value={{ user, signUp, logIn, logOut, changeMatricula, email, name, password, setCurrentUser }}>
+    <AuthContext.Provider value={{ user, signUp, logIn, logOut, changeMatricula, email, mat, token, setCurrentUser, mensagem, setMensagem }}>
       {loading ? null : children}
     </AuthContext.Provider>
   );
