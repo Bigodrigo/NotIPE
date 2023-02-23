@@ -4,45 +4,13 @@ import { FormProvider, useForm } from "react-hook-form";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../components/Firebase/firebase";
+import Alert from "../components/alert"
 
 const Mensagens = () => {
+  const [show, setShow] = useState(true)
   const { email, mat, token, setMensagem } = useAuth();
-  const mandaMensagem = async function (message) {
-    //const message = 'Testezinho sem o jão!'
-    console.log(token)
-    setMensagem(message);
-    // const payload = {
-    //     //token: "fhU2rIxPQuO7IuOzPavYUU:APA91bHA1TY6fEnyrCgE780RbF4UTYAcdGn7UYzl9H_OTDO5lhA8w0MlsRoNUEWw-2LJF1kCbYyzhhV3TjFu0yuk8tnr3wGmphuN2dcTzExTAFm3w0CnAArF4V1WSDsAMJezXSCTMJEq",
-    //     token,
-    //     notification: {
-    //         title: 'Nova Notificação do IPE!',
-    //         body: message,
-    //     }
-    // }
-    //o objeto funciona?
-    // fetch('/api/tryFirebaseAdmin',{
-    //   method: 'PUT',
-    //   body: JSON.stringify({
-    //     //userReply: detail.input,
-    //     //readConfirm: new Date()
-    //     payload
-    //   }),
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Content-type': 'application/json'            
-    //   }})
-    fetch('/api/tryFirebaseAdmin')
-      .then((response) => {
-          console.log('Resposta enviada para API com sucesso!')})
-      .catch((error) => {
-          console.error(error)})
-      // .then((res) => {
-      //       const data = res.json()
-      //       console.log('Mensagem Enviada')
-      //       console.log(data)
-      //   }).catch((e) => {
-      //       console.log(e)
-      //   })
+  const salvaMensagem = async function (data) {
+    setMensagem(data);
     }
     interface MensagemType {
       mensagem: string;
@@ -57,12 +25,13 @@ const Mensagens = () => {
 
     const onSubmit = async (data: MensagemType) => {
       try {
-        const docRef = doc(db,'mensagens','wLqiBZRUk1Qwl1F5syhMfEvkUAq2wLqiBZRUk1Qwl1F5syhMfEvkUAq2');
-        //console.log()
-        await setDoc(docRef,data);
+        // const docRef = doc(db,'mensagens','wLqiBZRUk1Qwl1F5syhMfEvkUAq2wLqiBZRUk1Qwl1F5syhMfEvkUAq2');
+        // //console.log()
+        // await setDoc(docRef,data);
           //let r = docSnap.data()
           //console.log(r)
-          mandaMensagem(data);
+          salvaMensagem(data);
+          setShow(true)
       } catch (error: any) {
         console.log(error.message);
       }
@@ -123,6 +92,7 @@ const Mensagens = () => {
             </div>
           </div>
         </form>
+        { show ? <Alert show={show} setShow={setShow} /> : <p> </p> }
       </FormProvider>
     )
   }

@@ -29,7 +29,6 @@ function PesquisaPage ({segurado}) {
       try {
         setLoading(true)
         const matricula = await changeMatricula(data)
-        //console.log(matricula)
         const docRef = doc(db,'users',matricula.matricula);
         console.log(matricula.matricula)
         const docSnap = await getDoc(docRef);
@@ -41,19 +40,6 @@ function PesquisaPage ({segurado}) {
             token:r.token,
             });
           setMensagens(true)
-          //mandaMensagem();
-          //saveMessagingDeviceToken(matricula.matricula);   
-          // const message = 'Teste com o João!';
-          // const payload = {
-          //   token: "eVkOSNUeRT6zNO3fxZQzS3:APA91bFhYSdoEeHLHV_eQq2nQcQ7NGrAHJzPIuppbojQ5uDe5JTlsVfrWH9wI_nUsy2RzulZcB2XUa12uufs7PK8dyOVgGL2eVOzZ7MCBGICRqmvsD69wTEhYhWaym3Dctqjeqx_5x9m",
-          //   notification : {
-          //     title: 'Confia!',
-          //     body: message,
-          //   }
-          // }
-          // admin.messaging().send(payload).then(response => {
-          //   console.log('Mandou!!')
-          // })   
       // return {
       //   props: {
       //     segurado,
@@ -101,7 +87,7 @@ function PesquisaPage ({segurado}) {
           </div>
         </form>
       </FormProvider>
-          { mensagens ? <Mensagens /> : <p> </p> }
+      { mensagens ? <Mensagens /> : <p> </p> }
     </ProtectedRoute>
   );
 };

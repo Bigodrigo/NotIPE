@@ -87,9 +87,13 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     email:'',
     mat:'',
     token:'',
+    //uidTeste: KLz4kQwtPhQVo34VdbmUFWAUMMR2
+    //uidJair: wLqiBZRUk1Qwl1F5syhMfEvkUAq2
+    //tokenTeste: dExt3G1BRBq0ORj3lHM1hQ:APA91bG62SoqpBtI430OXp5blmNnfcQnRNr6b203yl0lnL99ks20wQcq_ZnmLXRXQgwRS5anMs7gxmbWEWEztkfEDQO8IqhhQdDR0EnyuY1WmjTDF6NuAWPEj782uVzkRlv0z6yo1oN9
+    //tokenJair: "fhU2rIxPQuO7IuOzPavYUU:APA91bHA1TY6fEnyrCgE780RbF4UTYAcdGn7UYzl9H_OTDO5lhA8w0MlsRoNUEWw-2LJF1kCbYyzhhV3TjFu0yuk8tnr3wGmphuN2dcTzExTAFm3w0CnAArF4V1WSDsAMJezXSCTMJEq"
   });
 
-  const [mensagem, setMensagem] = useState<string>('Testando!')
+  const [mensagem, setMensagem] = useState<string>('Testando no Context!')
 
   return (
     <AuthContext.Provider value={{ user, signUp, logIn, logOut, changeMatricula, email, mat, token, setCurrentUser, mensagem, setMensagem }}>
