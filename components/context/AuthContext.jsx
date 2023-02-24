@@ -1,28 +1,18 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import {
-  onAuthStateChanged,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
+import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../Firebase/firebase";
 import { getDoc, collection, doc, setDoc, Timestamp } from "firebase/firestore";
 import { db } from "../Firebase/firebase";
 import { User, userConverter } from "../Firebase/converter";
 
-interface UserType {
-  email: string | null;
-  uid: string | null;
-}
-
 const AuthContext = createContext({});
 
-export const useAuth = () => useContext<any>(AuthContext);
+export const useAuth = () => useContext(AuthContext);
 
-export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<UserType>({ email: null, uid: null });
-  const [matricula, setMatricula] = useState<string>(null)
-  const [loading, setLoading] = useState<boolean>(true);
+export const AuthContextProvider = ({ children }) => {
+  const [user, setUser] = useState({ email: null, uid: null });
+  const [matricula, setMatricula] = useState(null)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -40,7 +30,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     return () => unsubscribe();
   }, []);
 
-  const signUp = (email: string, password: string) => {
+  const signUp = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
     .then(async(userCredencial) => {
       let user = userCredencial.user;
@@ -52,7 +42,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     return
   };
 
-  const logIn = (email: string, password: string) => {
+  const logIn = (email, password) => {
     signInWithEmailAndPassword(auth, email, password).then(async(userCredential) => {
       let user = userCredential.user;
           const uid = user.uid;
@@ -78,7 +68,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     await signOut(auth);
   };
 
-  const changeMatricula = async (matricula: string) => {
+  const changeMatricula = async (matricula) => {
     setMatricula(matricula)
     return matricula;
   };
@@ -94,7 +84,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     //tokenJair: "fhU2rIxPQuO7IuOzPavYUU:APA91bHA1TY6fEnyrCgE780RbF4UTYAcdGn7UYzl9H_OTDO5lhA8w0MlsRoNUEWw-2LJF1kCbYyzhhV3TjFu0yuk8tnr3wGmphuN2dcTzExTAFm3w0CnAArF4V1WSDsAMJezXSCTMJEq"
   });
 
-  const [mensagem, setMensagem] = useState<string>('Testando no Context!')
+  const [mensagem, setMensagem] = useState('Testando no Context!')
 
   return (
     <AuthContext.Provider value={{ user, signUp, logIn, logOut, changeMatricula, email, mat, token, uid, setCurrentUser, mensagem, setMensagem }}>
