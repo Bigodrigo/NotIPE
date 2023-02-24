@@ -3,13 +3,14 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../components/Firebase/firebase";
 import { useAuth } from "./context/AuthContext";
 
-const Alert = ({ show, setShow }) => {
-    const { mensagem, token } = useAuth();
+const Alert = ({show,setShow}) => {
+
+    const { mensagem, token, user } = useAuth();
 
     const mandaMensagem = async function () {
         try {
-            //cuidado com o uid!
-            const docRef = doc(db, 'mensagens', 'KLz4kQwtPhQVo34VdbmUFWAUMMR2'); //arruma
+            console.log(user.uid)       
+            const docRef = doc(db,'mensagens', user.uid);
             await setDoc(docRef, mensagem);
             let request = new Request('/api/tryFirebaseAdmin', {
                 method: 'POST',
@@ -25,13 +26,7 @@ const Alert = ({ show, setShow }) => {
             );
             fetch(request)
                 .then((response) => {
-                    console.log('Resposta enviada para API com sucesso!')
-                })
-                .catch((error) => {
-                    console.error(error)
-                })
-                .then((response) => {
-                    console.log('Successfully sent message:', response);
+                    console.log('Resposta enviada para API com sucesso!', response)
                 })
                 .catch((error) => {
                     console.log('Error sending message:', error);

@@ -14,4 +14,7 @@ IMPORTANTE:
 Percebi alguns erros q precisam ser corrigidos, talvez por usar tsx ou copiar o exemplo!!
 Tanto a matricula quanto o input estão vindo na forma de array, sendo necessário acessar matricula.matricula!!
 Apesar de estar escrito Matricula, na vdd estamos consultando o uid do firebase, modificar usando o "where"!
-Acessar as últimas mensagens enviadas? Para isso precisamos modificar a ordem das coisas no FB?! 
+Acessar as últimas mensagens enviadas? Para isso precisamos modificar a ordem das coisas no FB?!
+
+24/02 - Ajuste de algumas coisas e deleção de outras! Importante dizer q o dashboard e old_index são exemplos e n deve ser deletado! Testar quais páginas podem ser retiradas...
+por exemplo .firebase, out, podem ser removidas ou desinstalar pelo npm?

@@ -1,3 +1,4 @@
+//Esta página é um teste/exemplo, ao se conectar pela página de login, vc tem acesso a todos os usuários do banco!
 import { useEffect, useState } from "react";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { collection, getDocs, query, collectionGroup } from "firebase/firestore";
@@ -11,7 +12,7 @@ function DashboardPage ({segurados}) {
           <h2 className="text-2xl font-semibold">Banco de Usuários</h2>
           <ul>
           {segurados.map((segurado) => 
-              (<li key={segurado.matricula} className="text-center p-2"><button>{segurado.name}</button></li>)
+              (<li key={segurado.email} className="text-center p-2"><button>{segurado.email}</button></li>)
           )}
           </ul>
         </div>
@@ -21,16 +22,15 @@ function DashboardPage ({segurados}) {
 };
 
 export async function getStaticProps() {
-  const q = query(collectionGroup(db,'Users'));
+  const q = query(collectionGroup(db,'users'));
   const querySnapshot = await getDocs(q);
   const segurados = [];
   querySnapshot.forEach((doc) => {
       let r = doc.data()
       const userObject = {
         email: r.email,
-        matricula: r.matricula,
-        name: r.name,
-        password:r.password,
+        mat: r.matricula,
+        //token:r.token,
     };
       segurados.push(userObject);
   });
