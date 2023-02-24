@@ -83,10 +83,11 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     return matricula;
   };
 
-  const [{ email, mat, token }, setCurrentUser] = useState({
+  const [{ email, mat, token, uid }, setCurrentUser] = useState({
     email:'',
     mat:'',
     token:'',
+    uid:'',
     //uidTeste: KLz4kQwtPhQVo34VdbmUFWAUMMR2
     //uidJair: wLqiBZRUk1Qwl1F5syhMfEvkUAq2
     //tokenTeste: dExt3G1BRBq0ORj3lHM1hQ:APA91bG62SoqpBtI430OXp5blmNnfcQnRNr6b203yl0lnL99ks20wQcq_ZnmLXRXQgwRS5anMs7gxmbWEWEztkfEDQO8IqhhQdDR0EnyuY1WmjTDF6NuAWPEj782uVzkRlv0z6yo1oN9
@@ -96,7 +97,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   const [mensagem, setMensagem] = useState<string>('Testando no Context!')
 
   return (
-    <AuthContext.Provider value={{ user, signUp, logIn, logOut, changeMatricula, email, mat, token, setCurrentUser, mensagem, setMensagem }}>
+    <AuthContext.Provider value={{ user, signUp, logIn, logOut, changeMatricula, email, mat, token, uid, setCurrentUser, mensagem, setMensagem }}>
       {loading ? null : children}
     </AuthContext.Provider>
   );

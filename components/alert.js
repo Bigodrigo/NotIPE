@@ -5,12 +5,12 @@ import { useAuth } from "./context/AuthContext";
 
 const Alert = ({show,setShow}) => {
 
-    const { mensagem, token, user } = useAuth();
+    const { mensagem, token, uid } = useAuth();
 
     const mandaMensagem = async function () {
         try {
-            console.log(user.uid)       
-            const docRef = doc(db,'mensagens', user.uid);
+            console.log(uid)   
+            const docRef = doc(db,'mensagens', uid);
             await setDoc(docRef, mensagem);
             let request = new Request('/api/tryFirebaseAdmin', {
                 method: 'POST',

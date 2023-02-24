@@ -39,14 +39,14 @@ function PesquisaPage ({segurado}) {
         
       let t =   docSnap.forEach((doc)=>{
          // console.log(doc.id, " => ", doc.data() )
-
+          console.log(doc.id)
           setCurrentUser({
             email: doc.data().email,
             mat:doc.data().matricula,
-            token:doc.data().token
+            token:doc.data().token,
+            uid: doc.id,
           })
         });
-       
         //   let r = docSnap.data()
         //  // console.log(r)
         //   setCurrentUser({
