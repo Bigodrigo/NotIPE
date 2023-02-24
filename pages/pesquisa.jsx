@@ -7,25 +7,21 @@ import { useAuth } from "../components/context/AuthContext";
 import Mensagens from "../components/mensagens";
 //aproveitar q ja tem context e empurrar o usuário?!?! A matricula da pessoa?!
 import { saveMessagingDeviceToken } from "../components/Firebase/messaging"
-import admin from 'firebase-admin'
+
 
 function PesquisaPage ({segurado}) {
   const [mensagens, setMensagens] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const { changeMatricula, setCurrentUser } = useAuth();
   //const router = useRouter();
-  interface MatriculaType {
-    matricula: string;
-  }
-    const methods = useForm<MatriculaType>({ mode: "onBlur" });
-  
+    const methods = useForm({ mode: "onBlur" });
     const {
       register,
       handleSubmit,
       formState: { errors },
     } = methods;
 
-    const onSubmit = async (data: MatriculaType) => {
+    const onSubmit = async (data) => {
       try {
         setLoading(true)
         const emailval = await changeMatricula(data)
@@ -37,7 +33,7 @@ function PesquisaPage ({segurado}) {
         const docSnap = await getDocs(docRef);
         // console.log(docSnap.query);
         
-      let t =   docSnap.forEach((doc)=>{
+      let t = docSnap.forEach((doc)=>{
          // console.log(doc.id, " => ", doc.data() )
           console.log(doc.id)
           setCurrentUser({
@@ -64,7 +60,7 @@ function PesquisaPage ({segurado}) {
       //   // - At most once every 10 seconds
       //   revalidate: 10, // In seconds
       // }
-      } catch (error: any) {
+      } catch (error) {
         console.log(error.message);
       }
     };

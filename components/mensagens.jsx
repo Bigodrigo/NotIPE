@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../components/context/AuthContext";
+import { useAuth } from "./context/AuthContext";
 import { FormProvider, useForm } from "react-hook-form";
-import ProtectedRoute from "../components/ProtectedRoute";
+import ProtectedRoute from "./ProtectedRoute";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db } from "../components/Firebase/firebase";
-import Alert from "../components/alert"
+import { db } from "./Firebase/firebase";
+import Alert from "./alert"
 
 const Mensagens = () => {
   const [show, setShow] = useState(false)
@@ -13,10 +13,7 @@ const Mensagens = () => {
   const salvaMensagem = async function (data) {
     setMensagem(data);
     }
-    interface MensagemType {
-      mensagem: string;
-    }
-      const methods = useForm<MensagemType>({ mode: "onBlur" });
+      const methods = useForm({ mode: "onBlur" });
 
       const {
         register,
@@ -24,7 +21,7 @@ const Mensagens = () => {
         formState: { errors },
       } = methods;
 
-    const onSubmit = async (data: MensagemType) => {
+    const onSubmit = async (data) => {
       try {
         // const docRef = doc(db,'mensagens','wLqiBZRUk1Qwl1F5syhMfEvkUAq2wLqiBZRUk1Qwl1F5syhMfEvkUAq2');
         // //console.log()
@@ -33,7 +30,7 @@ const Mensagens = () => {
           //console.log(r)
           salvaMensagem(data);
           setShow(true)
-      } catch (error: any) {
+      } catch (error) {
         console.log(error.message);
       }
     };

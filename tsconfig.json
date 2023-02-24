@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "components/context/AuthContext.jsx", "components/mensagens.jsx", "pages/signup.jsx", "pages/pesquisa.jsx", "pages/login.jsx"  ],
   "exclude": [
     "node_modules"
   ]

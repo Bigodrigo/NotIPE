@@ -3,12 +3,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useAuth } from "../components/context/AuthContext";
 import { useRouter } from "next/router";
 
-interface LoginType {
-  email: string;
-  password: string;
-}
 const LoginPage = () => {
-  const methods = useForm<LoginType>({ mode: "onBlur" });
+  const methods = useForm({ mode: "onBlur" });
 
   const {
     register,
@@ -19,12 +15,12 @@ const LoginPage = () => {
   const { logIn } = useAuth();
   const router = useRouter();
 
-  const onSubmit = async (data: LoginType) => {
+  const onSubmit = async (data) => {
     try {
       await logIn(data.email, data.password);
       router.push("/dashboard");
       //router.push("/pesquisa");
-    } catch (error: any) {
+    } catch (error) {
       console.log(error.message);
     }
   };

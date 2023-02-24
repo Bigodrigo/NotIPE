@@ -3,15 +3,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useAuth } from "../components/context/AuthContext";
 import { useRouter } from "next/router";
 
-interface SignupType {
-  email: string;
-  matricula: string;
-  name: string;
-  password: string;
-  password_confirm: string;
-}
 const SignupPage = () => {
-  const methods = useForm<SignupType>({ mode: "onBlur" });
+  const methods = useForm({ mode: "onBlur" });
 
   const {
     register,
@@ -19,13 +12,13 @@ const SignupPage = () => {
     formState: { errors },
   } = methods;
 
-  const onSubmit = async (data: SignupType) => {
+  const onSubmit = async (data) => {
     try {
       await signUp(data.email, data.password);
       router.push("/dashboard");
       // const docRef = doc(db,'Users',data.matricula).withConverter(userConverter)
       // await setDoc(docRef, new User(data.email,data.name,data.password,data.matricula))
-    } catch (error: any) {
+    } catch (error) {
       console.log(error.message);
     }
   };
