@@ -72,7 +72,7 @@ function PesquisaPage ({segurado}) {
         <form action="" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex py-2 container mx-auto">
             <label htmlFor="price" className="block text-2xl font-medium text-gray-700 mx-4 py-1">
-              Matricula :
+              Email :
             </label>
             <div className="relative mt-1 rounded-md shadow-sm">
               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">

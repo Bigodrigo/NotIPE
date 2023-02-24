@@ -18,3 +18,5 @@ Acessar as últimas mensagens enviadas? Para isso precisamos modificar a ordem d
 
 24/02 - Ajuste de algumas coisas e deleção de outras! Importante dizer q o dashboard e old_index são exemplos e n deve ser deletado! Testar quais páginas podem ser retiradas...
 por exemplo .firebase, out, podem ser removidas ou desinstalar pelo npm?
+Para Segunda: Construir um Objeto mensagem! Pode ser no Context ou no converter, igual as tasks.... a mensagem.date é o "nome do documento" e 4 campos no objeto:
+pergunta, horario, resposta null e horario null!

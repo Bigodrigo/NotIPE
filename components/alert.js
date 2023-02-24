@@ -10,14 +10,16 @@ const Alert = ({show,setShow}) => {
     const mandaMensagem = async function () {
         try {
             console.log(uid)   
-            const docRef = doc(db,'mensagens', uid);
-            await setDoc(docRef, mensagem);
+            const docRef = doc(db,'users', uid, 'Mensagens', new Date().toString());
+            await setDoc(docRef, {'pergunta':mensagem.mensagem,'resposta':''});
             let request = new Request('/api/tryFirebaseAdmin', {
                 method: 'POST',
                 body: JSON.stringify({
                     token: token,
                     title: "Notificação Nova!",
                     input: mensagem.mensagem,
+                    userid: uid,
+                    messageid: 'conversa1'
                 }),
                 headers: new Headers({
                     'Content-Type': 'application/json; charset=UTF-8'
