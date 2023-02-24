@@ -7,8 +7,9 @@ import { db } from "../components/Firebase/firebase";
 import Alert from "../components/alert"
 
 const Mensagens = () => {
-  const [show, setShow] = useState(true)
+  const [show, setShow] = useState(false)
   const { email, mat, token, setMensagem } = useAuth();
+
   const salvaMensagem = async function (data) {
     setMensagem(data);
     }

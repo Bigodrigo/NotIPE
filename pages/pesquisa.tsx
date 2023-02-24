@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import ProtectedRoute from "../components/ProtectedRoute";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc,collection,query ,where,getDocs  } from "firebase/firestore";
 import { db } from "../components/Firebase/firebase";
 import { useAuth } from "../components/context/AuthContext";
 import Mensagens from "../components/mensagens";
@@ -28,17 +28,32 @@ function PesquisaPage ({segurado}) {
     const onSubmit = async (data: MatriculaType) => {
       try {
         setLoading(true)
-        const matricula = await changeMatricula(data)
-        const docRef = doc(db,'users',matricula.matricula);
-        console.log(matricula.matricula)
-        const docSnap = await getDoc(docRef);
-          let r = docSnap.data()
-          console.log(r)
+        const emailval = await changeMatricula(data)
+      // console.log(data)
+       // const docRef = doc(db,'users',email.matricula);
+     //  console.log(email)
+       const docRef = query(collection(db,'users'), where("email", "==", emailval.matricula));
+      //  console.log(docRef)
+        const docSnap = await getDocs(docRef);
+        // console.log(docSnap.query);
+        
+      let t =   docSnap.forEach((doc)=>{
+         // console.log(doc.id, " => ", doc.data() )
+
           setCurrentUser({
-            email: r.email,
-            mat: r.mat,
-            token:r.token,
-            });
+            email: doc.data().email,
+            mat:doc.data().matricula,
+            token:doc.data().token
+          })
+        });
+       
+        //   let r = docSnap.data()
+        //  // console.log(r)
+        //   setCurrentUser({
+        //     email: r.email,
+        //     mat: r.mat,
+        //     token:r.token,
+        //     });
           setMensagens(true)
       // return {
       //   props: {

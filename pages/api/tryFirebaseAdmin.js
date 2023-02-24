@@ -15,6 +15,5 @@ export default async function handler(req, res) {
     admin.messaging().send(payload).catch(e=>console.log(e))
     res.status(200)
     res.json({ mensagem: 'Enviado' })
-
     return res
 }
