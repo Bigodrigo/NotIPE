@@ -20,3 +20,5 @@ Acessar as últimas mensagens enviadas? Para isso precisamos modificar a ordem d
 por exemplo .firebase, out, podem ser removidas ou desinstalar pelo npm?
 Para Segunda: Construir um Objeto mensagem! Pode ser no Context ou no converter, igual as tasks.... a mensagem.date é o "nome do documento" e 4 campos no objeto:
 pergunta, horario, resposta null e horario null!
+
+27/02 - Objeto criado! Vamos ajustar as informações redundantes como matricula.matricula! Tbm precisamos criar o useEffect para montar os Objetos já criados!

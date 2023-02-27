@@ -9,9 +9,16 @@ const Alert = ({show,setShow}) => {
 
     const mandaMensagem = async function () {
         try {
-            console.log(uid)   
-            const docRef = doc(db,'users', uid, 'Mensagens', new Date().toString());
-            await setDoc(docRef, {'pergunta':mensagem.mensagem,'resposta':''});
+            console.log(uid)
+            const mensagemObject ={
+                pergunta: mensagem.mensagem,
+                enviadoEm: new Date().toString(),
+                resposta: '',
+                recebidoEm: '',
+            }   
+            const docRef = doc(db,'users', uid, 'Mensagens', mensagemObject.enviadoEm);
+            console.log(mensagemObject)
+            await setDoc(docRef, mensagemObject);
             let request = new Request('/api/tryFirebaseAdmin', {
                 method: 'POST',
                 body: JSON.stringify({
