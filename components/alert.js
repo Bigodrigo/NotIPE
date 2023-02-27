@@ -11,7 +11,7 @@ const Alert = ({show,setShow}) => {
         try {
             console.log(uid)
             const mensagemObject ={
-                pergunta: mensagem.mensagem,
+                pergunta: mensagem.input,
                 enviadoEm: new Date().toString(),
                 resposta: '',
                 recebidoEm: '',
@@ -24,7 +24,7 @@ const Alert = ({show,setShow}) => {
                 body: JSON.stringify({
                     token: token,
                     title: "Notificação Nova!",
-                    input: mensagem.mensagem,
+                    input: mensagem.input,
                     userid: uid,
                     messageid: 'conversa1'
                 }),
@@ -53,7 +53,7 @@ const Alert = ({show,setShow}) => {
                 <h3 class="text-lg font-medium">Por Favor, confirme se a mensagem e o destinatário estão corretos!</h3>
             </div>
             <div class="mt-2 mb-4 text-sm">
-                {mensagem.mensagem}
+                {mensagem.input}
             </div>
             <div class="flex">
                 <button type="button" class="text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-xs px-3 py-1.5 mr-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

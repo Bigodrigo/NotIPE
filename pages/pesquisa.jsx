@@ -12,7 +12,7 @@ import { saveMessagingDeviceToken } from "../components/Firebase/messaging"
 function PesquisaPage ({segurado}) {
   const [mensagens, setMensagens] = useState(false)
   const [isLoading, setLoading] = useState(false)
-  const { changeMatricula, setCurrentUser } = useAuth();
+  const { changePesquisa, setCurrentUser } = useAuth();
   //const router = useRouter();
     const methods = useForm({ mode: "onBlur" });
     const {
@@ -24,11 +24,13 @@ function PesquisaPage ({segurado}) {
     const onSubmit = async (data) => {
       try {
         setLoading(true)
-        const emailval = await changeMatricula(data)
-      // console.log(data)
+        //const emailval = await changePesquisa(data)
+        const emailval = data.input
+        console.log(data)
+        console.log(emailval)
        // const docRef = doc(db,'users',email.matricula);
      //  console.log(email)
-       const docRef = query(collection(db,'users'), where("email", "==", emailval.matricula));
+       const docRef = query(collection(db,'users'), where("email", "==", emailval));
       //  console.log(docRef)
         const docSnap = await getDocs(docRef);
         // console.log(docSnap.query);
@@ -38,7 +40,7 @@ function PesquisaPage ({segurado}) {
           console.log(doc.id)
           setCurrentUser({
             email: doc.data().email,
-            mat:doc.data().matricula,
+            matricula:doc.data().matricula,
             token:doc.data().token,
             uid: doc.id,
           })
@@ -79,12 +81,17 @@ function PesquisaPage ({segurado}) {
                 <span className="text-gray-500 sm:text-sm"> </span>
               </div>
               <input
-                {...register("matricula", { required: "Matricula is required" })}
+                // {...register("matricula", { required: "Matricula is required" })}
+                {...register("input", { required: "Input is required" })}
+                // type="text"
+                // name="matricula"
+                // id="matricula"
                 type="text"
-                name="matricula"
-                id="matricula"
+                name="input"
+                id="input"
                 className="block w-full rounded-md border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                placeholder="00.00000000.00.0"
+                //placeholder="00.00000000.00.0"
+                placeholder="xxxx@xxxx.com"
               />
               <div className="absolute inset-y-0 right-0 flex items-center">
                 <button

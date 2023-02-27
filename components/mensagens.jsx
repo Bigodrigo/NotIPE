@@ -8,7 +8,7 @@ import Alert from "./alert"
 
 const Mensagens = () => {
   const [show, setShow] = useState(false)
-  const { email, mat, token, setMensagem } = useAuth();
+  const { email, matricula, token, setMensagem } = useAuth();
 
   const salvaMensagem = async function (data) {
     setMensagem(data);
@@ -46,7 +46,7 @@ const Mensagens = () => {
               <dl>
                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                   <dt className="text-sm font-medium text-gray-500">Matricula</dt>
-                  <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{mat}</dd>
+                  <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{matricula}</dd>
                 </div>
                 <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                   <dt className="text-sm font-medium text-gray-500">Email address</dt>
@@ -68,10 +68,10 @@ const Mensagens = () => {
                         <span className="text-gray-500 sm:text-sm"> </span>
                       </div>
                       <input
-                        {...register("mensagem", { required: "Mensagem is required" })}
+                        {...register("input", { required: "Mensagem is required" })}
                         type="text"
-                        name="mensagem"
-                        id="mensagem"
+                        name="input"
+                        id="input"
                         className="block w-full rounded-md border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="Digite a mensagem..."
                       />

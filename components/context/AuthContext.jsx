@@ -11,7 +11,8 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({ email: null, uid: null });
-  const [matricula, setMatricula] = useState(null)
+  //const [matricula, setMatricula] = useState(null)
+  const [pesquisa, setPesquisa] = useState(null)
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -31,12 +32,13 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   const signUp = (email, password) => {
+    //pode ter problema?
     createUserWithEmailAndPassword(auth, email, password)
     .then(async(userCredencial) => {
       let user = userCredencial.user;
       const uid = user.uid;
       console.log(uid)
-      const docRef = doc(db,'user',uid).withConverter(userConverter)
+      const docRef = doc(db,'users',uid).withConverter(userConverter)
       await setDoc(docRef, new User(email, matricula))
     })
     return
@@ -68,14 +70,14 @@ export const AuthContextProvider = ({ children }) => {
     await signOut(auth);
   };
 
-  const changeMatricula = async (matricula) => {
-    setMatricula(matricula)
-    return matricula;
+  const changePesquisa = async (input) => {
+    setPesquisa(input)
+    return pesquisa;
   };
 
-  const [{ email, mat, token, uid }, setCurrentUser] = useState({
+  const [{ email, matricula, token, uid }, setCurrentUser] = useState({
     email:'',
-    mat:'',
+    matricula:'',
     token:'',
     uid:'',
     //uidTeste: KLz4kQwtPhQVo34VdbmUFWAUMMR2
@@ -87,7 +89,7 @@ export const AuthContextProvider = ({ children }) => {
   const [mensagem, setMensagem] = useState('Testando no Context!')
 
   return (
-    <AuthContext.Provider value={{ user, signUp, logIn, logOut, changeMatricula, email, mat, token, uid, setCurrentUser, mensagem, setMensagem }}>
+    <AuthContext.Provider value={{ user, signUp, logIn, logOut, changePesquisa, email, matricula, token, uid, setCurrentUser, mensagem, setMensagem }}>
       {loading ? null : children}
     </AuthContext.Provider>
   );
