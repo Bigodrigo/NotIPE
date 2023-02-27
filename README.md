@@ -22,3 +22,4 @@ Para Segunda: Construir um Objeto mensagem! Pode ser no Context ou no converter,
 pergunta, horario, resposta null e horario null!
 
 27/02 - Objeto criado! Vamos ajustar as informações redundantes como matricula.matricula! Tbm precisamos criar o useEffect para montar os Objetos já criados!
+Formatamos a data!

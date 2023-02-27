@@ -24,20 +24,13 @@ function PesquisaPage ({segurado}) {
     const onSubmit = async (data) => {
       try {
         setLoading(true)
-        //const emailval = await changePesquisa(data)
         const emailval = data.input
         console.log(data)
         console.log(emailval)
-       // const docRef = doc(db,'users',email.matricula);
-     //  console.log(email)
        const docRef = query(collection(db,'users'), where("email", "==", emailval));
-      //  console.log(docRef)
         const docSnap = await getDocs(docRef);
-        // console.log(docSnap.query);
         
       let t = docSnap.forEach((doc)=>{
-         // console.log(doc.id, " => ", doc.data() )
-          console.log(doc.id)
           setCurrentUser({
             email: doc.data().email,
             matricula:doc.data().matricula,
@@ -45,13 +38,6 @@ function PesquisaPage ({segurado}) {
             uid: doc.id,
           })
         });
-        //   let r = docSnap.data()
-        //  // console.log(r)
-        //   setCurrentUser({
-        //     email: r.email,
-        //     mat: r.mat,
-        //     token:r.token,
-        //     });
           setMensagens(true)
       // return {
       //   props: {

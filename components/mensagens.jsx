@@ -2,13 +2,37 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "./context/AuthContext";
 import { FormProvider, useForm } from "react-hook-form";
 import ProtectedRoute from "./ProtectedRoute";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { query, getDocs, collection, doc, where, FieldPath } from "firebase/firestore";
 import { db } from "./Firebase/firebase";
 import Alert from "./alert"
+import { conversaConverter } from "./Firebase/converter";
 
 const Mensagens = () => {
   const [show, setShow] = useState(false)
-  const { email, matricula, token, setMensagem } = useAuth();
+  const [conversas, setConversas] = useState([]);
+  const { email, matricula, token, setMensagem, uid } = useAuth();
+
+  async function fetchData() {
+    const q = query(collection(db,'users', uid, 'Mensagens'));
+    //const q = query(collectionGroup(db,'Mensagens'), where('email','==',email));
+    //const docRef = doc(db,'users', uid, 'Mensagens', new Date().toString());
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(async (doc) => {
+      let conversa = doc.data()
+      console.log(doc.id, " => ", doc.data());
+      const mensagemObject = {
+        enviadoEm: conversa.enviadoEm,
+        pergunta: conversa.pergunta,
+        recebidoEm: conversa.recebidoEm,
+        resposta: conversa.resposta,
+      };
+      conversas.push(mensagemObject);
+    })
+    console.log(conversas);
+      //console.log(tasks)
+      //console.log(finishedTasks)
+      //setDownloadingTasks(false);
+  }
 
   const salvaMensagem = async function (data) {
     setMensagem(data);
@@ -58,7 +82,11 @@ const Mensagens = () => {
                 </div>
                 <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                   <dt className="text-sm font-medium text-gray-500">Mensagens</dt>
-                  <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Esperando o FireBase!!</dd>
+                  <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                    <button onClick={()=>fetchData()}>
+                      Últimas mensagens!
+                    </button>
+                    </dd>
                 </div>
                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                   <dt className="text-sm font-medium text-gray-500">Enviar nova mensagem:</dt>

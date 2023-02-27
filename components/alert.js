@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../components/Firebase/firebase";
 import { useAuth } from "./context/AuthContext";
+import { formataData } from "../utils/scripts"
 
 const Alert = ({show,setShow}) => {
 
     const { mensagem, token, uid } = useAuth();
 
     const mandaMensagem = async function () {
+        //const envio = formataData(new Date().toLocaleString(),'## ## ####, ##:##:##')
+        //const envio = formataData(new Date().toLocaleString())
         try {
             console.log(uid)
             const mensagemObject ={
+                enviadoEm: new Date().toLocaleString(),
                 pergunta: mensagem.input,
-                enviadoEm: new Date().toString(),
-                resposta: '',
                 recebidoEm: '',
+                resposta: '',
             }   
-            const docRef = doc(db,'users', uid, 'Mensagens', mensagemObject.enviadoEm);
+            const docRef = doc(db,'users', uid, 'Mensagens', formataData(mensagemObject.enviadoEm));
             console.log(mensagemObject)
             await setDoc(docRef, mensagemObject);
             let request = new Request('/api/tryFirebaseAdmin', {
