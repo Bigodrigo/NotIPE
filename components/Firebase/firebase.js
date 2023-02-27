@@ -11,16 +11,24 @@ import { useState } from "react";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyBgQ4ibN07z3O8KMaLtxhpVTYHV7Xq0lwY",
-  authDomain: "ipesaudeapp.firebaseapp.com",
-  projectId: "ipesaudeapp",
-  storageBucket: "ipesaudeapp.appspot.com",
-  messagingSenderId: "1096335689164",
-  appId: "1:1096335689164:web:e4a768e845b1db731d0969",
-  measurementId: "G-C0LYQRRZ5X"
-};
+// const firebaseConfig = {
+//   apiKey: "AIzaSyBgQ4ibN07z3O8KMaLtxhpVTYHV7Xq0lwY",
+//   authDomain: "ipesaudeapp.firebaseapp.com",
+//   projectId: "ipesaudeapp",
+//   storageBucket: "ipesaudeapp.appspot.com",
+//   messagingSenderId: "1096335689164",
+//   appId: "1:1096335689164:web:e4a768e845b1db731d0969",
+//   measurementId: "G-C0LYQRRZ5X"
+// };
 
+const firebaseConfig = {
+  apiKey: "AIzaSyC1UOo6wNCAIX3o-VLJwhccWsE3BeDJjlk",
+  authDomain: "ipesaudeapp-b9b06.firebaseapp.com",
+  projectId: "ipesaudeapp-b9b06",
+  storageBucket: "ipesaudeapp-b9b06.appspot.com",
+  messagingSenderId: "473929146651",
+  appId: "1:473929146651:web:8ac3a1aa87a4b71f67b3be"
+};
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();

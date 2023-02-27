@@ -39,7 +39,7 @@ export const AuthContextProvider = ({ children }) => {
       const uid = user.uid;
       console.log(uid)
       const docRef = doc(db,'users',uid).withConverter(userConverter)
-      await setDoc(docRef, new User(email, matricula))
+      await setDoc(docRef, new User(email))
     })
     return
   };
