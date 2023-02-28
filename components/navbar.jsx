@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const Navbar = ({ children }: { children: React.ReactNode }) => {
+const Navbar = ({ children }) => {
   const menuItems = [
     {
       id: 1,
