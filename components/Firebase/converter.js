@@ -24,6 +24,32 @@
         return new User(data.email, data.matricula, data.token);
     }
 };
+
+export class Funcionario{
+  constructor(nome,email,cargo){
+    this.nome = nome;
+    this.email = email;
+    this.cargo = cargo;
+  }
+  toString() {
+    return this.nome + ',' + this.email + ',' + this.cargo;
+  }
+}
+export const funcionarioConverter = {
+  toFirestore:(funcionario)=>{
+    return{
+      nome:funcionario.nome,
+      email:funcionario.email,
+      cargo:funcionario.cargo,
+    };
+  },
+  fromFirestore: (snapshot,options)=>{
+    const data = snapshot.data(options);
+    return new Funcionario(data.nome,data.email,data.cargo);
+  }
+};
+
+
 //Tasks converter
 export class Conversa {
   constructor (enviadoEm, pergunta, recebidoEm, resposta ) {
