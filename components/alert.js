@@ -4,7 +4,7 @@ import { db } from "../components/Firebase/firebase";
 import { useAuth } from "./context/AuthContext";
 import { formataData } from "../utils/scripts"
 
-const Alert = ({show,setShow}) => {
+const Alert = ({ show, setShow }) => {
 
     const { mensagem, token, uid } = useAuth();
 
@@ -13,23 +13,23 @@ const Alert = ({show,setShow}) => {
         //const envio = formataData(new Date().toLocaleString())
         try {
             console.log(uid)
-            const mensagemObject ={
+            const mensagemObject = {
                 enviadoEm: new Date().toLocaleString(),
                 pergunta: mensagem.input,
                 recebidoEm: '',
                 resposta: '',
-            }   
-            const docRef = doc(db,'users', uid, 'Mensagens', formataData(mensagemObject.enviadoEm));
+            }
+            const docRef = doc(db, 'users', uid, 'Mensagens', formataData(mensagemObject.enviadoEm));
             console.log(mensagemObject)
             await setDoc(docRef, mensagemObject);
             let request = new Request('/api/tryFirebaseAdmin', {
-                method: 'POST',
+                method: 'PUT',
                 body: JSON.stringify({
                     token: token,
-                    title: "Notificação Nova!",
+                    title: "Notificação IPE Saúde!",
                     input: mensagem.input,
                     userid: uid,
-                    messageid: 'conversa1'
+                    messageid: formataData(mensagemObject.enviadoEm)
                 }),
                 headers: new Headers({
                     'Content-Type': 'application/json; charset=UTF-8'
@@ -48,7 +48,6 @@ const Alert = ({show,setShow}) => {
         }
     };
     return (
-
         <div id="alert-additional-content-1" class="p-4 mb-4 text-blue-800 border border-blue-300 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800" role="alert">
             <div class="flex items-center">
                 <svg aria-hidden="true" class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
