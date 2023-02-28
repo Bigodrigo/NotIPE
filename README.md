@@ -23,3 +23,6 @@ pergunta, horario, resposta null e horario null!
 
 27/02 - Objeto criado! Vamos ajustar as informações redundantes como matricula.matricula! Tbm precisamos criar o useEffect para montar os Objetos já criados!
 Formatamos a data!
+
+28/02 - Tentar refatorar as coisas, tirar código inutil. Melhorar as mensagens para algo visual como os selects!
+No signUp nós criamos um usuário/funcionário! Existe um novo banco de dados no FB para eles!! Precisamos ajustar as funções do FB, tentar usar os códigos do Joao de base!!

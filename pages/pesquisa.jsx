@@ -27,7 +27,7 @@ function PesquisaPage ({segurado}) {
         const emailval = data.input
         console.log(data)
         console.log(emailval)
-       const docRef = query(collection(db,'users'), where("email", "==", emailval));
+        const docRef = query(collection(db,'users'), where("email", "==", emailval));
         const docSnap = await getDocs(docRef);
         
       let t = docSnap.forEach((doc)=>{

@@ -1,7 +1,13 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { useAuth } from "../components/context/AuthContext";
+//import { useAuth } from "../components/context/AuthContext";
 import { useRouter } from "next/router";
+// import auth from '@react-native-firebase/auth'
+// import firestore from '@react-native-firebase/firestore'
+import { getDoc, collection, doc, setDoc, Timestamp, set } from "firebase/firestore";
+import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { db, auth } from "../components/Firebase/firebase";
+import { User, userConverter } from "../components/Firebase/converter";
 
 const SignupPage = () => {
   const methods = useForm({ mode: "onBlur" });
@@ -12,19 +18,32 @@ const SignupPage = () => {
     formState: { errors },
   } = methods;
 
+  //const { signUp } = useAuth();
+  const router = useRouter();
+
   const onSubmit = async (data) => {
-    try {
-      await signUp(data.email, data.password);
+    try {//auth().
+      //const usercredentials = createUserWithEmailAndPassword(data.email, data.password).then((usercredentials) => {
+        // if (usercredentials) {//firestore().
+        //     collection('funcionarios').doc(usercredentials.user.uid).set({
+        //       email: data.email,
+        //       matricula: data.matricula,
+        //       token: 'First Login!',
+        //       uid: usercredentials.user.uid,
+        //     })
+      await createUserWithEmailAndPassword(auth,data.email, data.password).then(async (usercredentials)=>{
+        const docRef = doc(db,'funcionarios',usercredentials.user.uid).withConverter(userConverter)
+        await setDoc(docRef, new User(data.email, data.matricula, 'First Login!'))
+      })
+          
+      
+        } catch (error) {
+          console.log(error.message);
+        }
+        //}).catch((error) => {console.log(error)});
       router.push("/dashboard");
-      // const docRef = doc(db,'Users',data.matricula).withConverter(userConverter)
-      // await setDoc(docRef, new User(data.email,data.name,data.password,data.matricula))
-    } catch (error) {
-      console.log(error.message);
-    }
   };
 
-  const { signUp } = useAuth();
-  const router = useRouter();
 
   return (
     <div className="sign-up-form container mx-auto w-96 mt-12 border-2 border-gray-400">

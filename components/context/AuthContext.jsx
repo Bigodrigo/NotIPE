@@ -38,10 +38,10 @@ export const AuthContextProvider = ({ children }) => {
       let user = userCredencial.user;
       const uid = user.uid;
       console.log(uid)
-      const docRef = doc(db,'users',uid).withConverter(userConverter)
-      await setDoc(docRef, new User(email))
+      // const docRef = doc(db,'users',uid).withConverter(userConverter)
+      // await setDoc(docRef, new User(email))
     })
-    return
+    return uid
   };
 
   const logIn = (email, password) => {
