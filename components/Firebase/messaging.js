@@ -1,3 +1,4 @@
+//nesse momento parece ser inutil, talvez seja necessário somente nos projetos que vão receber notificações! No nosso caso apenas mandamos!!
 import React, { useEffect } from "react";
 import { app, messaging, db } from "./firebase";
 import { doc, setDoc } from "firebase/firestore";
