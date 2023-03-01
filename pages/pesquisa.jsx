@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import ProtectedRoute from "../components/ProtectedRoute";
-import { doc, getDoc,collection,query ,where,getDocs  } from "firebase/firestore";
-import { db } from "../components/Firebase/firebase";
 import { useAuth } from "../components/context/AuthContext";
 import Mensagens from "../components/mensagens";
 //aproveitar q ja tem context e empurrar o usuário?!?! A matricula da pessoa?!
@@ -25,28 +23,20 @@ function PesquisaPage ({segurado}) {
       try {
         setLoading(true)
         const emailval = data.input
-        console.log(data)
-        console.log(emailval)
-        let request = new Request('/api/functions/BuscaEmail', {
-                        method: 'POST',
-                
-                headers: new Headers({
-                    'Content-Type': 'application/json; charset=UTF-8'
-                })
-            })
-            fetch(request)
-
-        const docRef = query(collection(db,'users'), where("email", "==", emailval));
-        const docSnap = await getDocs(docRef);
-        
-      let t = docSnap.forEach((doc)=>{
-          setCurrentUser({
-            email: doc.data().email,
-            matricula:doc.data().matricula,
-            token:doc.data().token,
-            uid: doc.id,
-          })
-        });
+        const res = await fetch('/api/functions/BuscaEmail', {
+          method: 'POST',
+          body: emailval
+        })
+          const teste = await res.json()
+          console.log(teste)
+        // const docRef = query(collection(db,'users'), where("email", "==", emailval));
+        // const docSnap = await getDocs(docRef);
+        setCurrentUser({
+          email: teste.email,
+          matricula:teste.matricula,
+          token:teste.token,
+          //uid: doc.id,
+        })
           setMensagens(true)
       // return {
       //   props: {
