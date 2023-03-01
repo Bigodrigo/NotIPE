@@ -22,7 +22,7 @@ const Alert = ({ show, setShow }) => {
             const docRef = doc(db, 'users', uid, 'Mensagens', formataData(mensagemObject.enviadoEm));
             console.log(mensagemObject)
             await setDoc(docRef, mensagemObject);
-            let request = new Request('/api/tryFirebaseAdmin', {
+            let request = new Request('/api/functions/FirebaseMessaging', {
                 method: 'PUT',
                 body: JSON.stringify({
                     token: token,

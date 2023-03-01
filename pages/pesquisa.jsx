@@ -27,6 +27,15 @@ function PesquisaPage ({segurado}) {
         const emailval = data.input
         console.log(data)
         console.log(emailval)
+        let request = new Request('/api/functions/BuscaEmail', {
+                        method: 'POST',
+                
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=UTF-8'
+                })
+            })
+            fetch(request)
+
         const docRef = query(collection(db,'users'), where("email", "==", emailval));
         const docSnap = await getDocs(docRef);
         
