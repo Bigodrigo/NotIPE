@@ -27,3 +27,5 @@ Formatamos a data!
 28/02 - Tentar refatorar as coisas, tirar código inutil. Melhorar as mensagens para algo visual como os selects!
 No signUp nós criamos um usuário/funcionário! Existe um novo banco de dados no FB para eles!! Precisamos ajustar as funções do FB, tentar usar os códigos do Joao de base!!
 Boa parte do código foi limpado! Fica a sugestão de utilizar a pasta functions dentro de Firebase dentro de components para fazer o envio das mensagens e coisas do banco!
+
+01/03 - Usar as Busca email como parâmetro para substituir nas páginas de alert, signup, login ....
