@@ -21,7 +21,7 @@ const Navbar = ({ children }) => {
 
   return (
     <>
-      <header className="flex flex-wrap container mx-auto max-w-full items-center p-6 justify-between bg-white shadow-md sticky top-0 z-50">
+      <header className="flex flex-wrap container mx-auto max-w-full items-center p-2 justify-between bg-white shadow-md sticky top-0 z-50">
         <nav className="md:inline md:items-center font-title w-full md:w-auto">
           <ul className="text-lg sm:flex">
             <>
