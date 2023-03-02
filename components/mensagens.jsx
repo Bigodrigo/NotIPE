@@ -9,29 +9,16 @@ import { conversaConverter } from "./Firebase/converter";
 
 const Mensagens = () => {
   const [show, setShow] = useState(false)
-  const [conversas, setConversas] = useState([]);
   const { email, matricula, token, setMensagem, uid } = useAuth();
 
   async function fetchData() {
-    const q = query(collection(db,'users', uid, 'Mensagens'));
-    //const q = query(collectionGroup(db,'Mensagens'), where('email','==',email));
-    //const docRef = doc(db,'users', uid, 'Mensagens', new Date().toString());
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach(async (doc) => {
-      let conversa = doc.data()
-      console.log(doc.id, " => ", doc.data());
-      const mensagemObject = {
-        enviadoEm: conversa.enviadoEm,
-        pergunta: conversa.pergunta,
-        recebidoEm: conversa.recebidoEm,
-        resposta: conversa.resposta,
-      };
-      conversas.push(mensagemObject);
-    })
-    console.log(conversas);
-      //console.log(tasks)
-      //console.log(finishedTasks)
-      //setDownloadingTasks(false);
+      let request = new Request('/api/functions/BuscaMensagens', {
+        method: 'POST',
+        body: uid,
+    });
+    const res = await fetch(request)
+    const teste = await res.json()
+    console.log(teste)
   }
 
   const salvaMensagem = async function (data) {

@@ -11,7 +11,7 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({ email: null, uid: null });
-  //const [matricula, setMatricula] = useState(null)
+  const [uid, setUid] = useState(null)
   const [pesquisa, setPesquisa] = useState(null)
   const [loading, setLoading] = useState(true);
 
@@ -75,11 +75,11 @@ export const AuthContextProvider = ({ children }) => {
   //   return pesquisa;
   // };
 
-  const [{ email, matricula, token, uid }, setCurrentUser] = useState({
+  const [{ email, matricula, token }, setCurrentUser] = useState({
     email:'',
     matricula:'',
     token:'',
-    uid:'',
+    //uid:'',
     //uidTeste: KLz4kQwtPhQVo34VdbmUFWAUMMR2
     //uidJair: wLqiBZRUk1Qwl1F5syhMfEvkUAq2
     //tokenTeste: dExt3G1BRBq0ORj3lHM1hQ:APA91bG62SoqpBtI430OXp5blmNnfcQnRNr6b203yl0lnL99ks20wQcq_ZnmLXRXQgwRS5anMs7gxmbWEWEztkfEDQO8IqhhQdDR0EnyuY1WmjTDF6NuAWPEj782uVzkRlv0z6yo1oN9
@@ -89,7 +89,7 @@ export const AuthContextProvider = ({ children }) => {
   const [mensagem, setMensagem] = useState('Testando no Context!')
 
   return (
-    <AuthContext.Provider value={{ user,  logIn, logOut,  email, matricula, token, uid, setCurrentUser, mensagem, setMensagem }}>
+    <AuthContext.Provider value={{ user,  logIn, logOut,  email, matricula, token, uid, setUid, setCurrentUser, mensagem, setMensagem }}>
       {loading ? null : children}
     </AuthContext.Provider>
   );

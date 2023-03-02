@@ -10,7 +10,7 @@ import { saveMessagingDeviceToken } from "../components/Firebase/messaging"
 function PesquisaPage ({segurado}) {
   const [mensagens, setMensagens] = useState(false)
   const [isLoading, setLoading] = useState(false)
-  const { changePesquisa, setCurrentUser } = useAuth();
+  const { setUid, setCurrentUser } = useAuth();
   //const router = useRouter();
     const methods = useForm({ mode: "onBlur" });
     const {
@@ -23,30 +23,24 @@ function PesquisaPage ({segurado}) {
       try {
         setLoading(true)
         const emailval = data.input
-        const res = await fetch('/api/functions/BuscaEmail', {
+        let buscaEmail = await fetch('/api/functions/BuscaEmail', {
           method: 'POST',
           body: emailval
         })
-          const teste = await res.json()
-          console.log(teste)
-        // const docRef = query(collection(db,'users'), where("email", "==", emailval));
-        // const docSnap = await getDocs(docRef);
-        setCurrentUser({
-          email: teste.email,
-          matricula:teste.matricula,
-          token:teste.token,
-          //uid: doc.id,
+        let resEmail = await buscaEmail.json()
+        setUid(resEmail.uid)
+
+        let buscaUser = await fetch('/api/functions/BuscaUser', {
+          method: 'POST',
+          body: resEmail.uid
         })
-          setMensagens(true)
-      // return {
-      //   props: {
-      //     segurado,
-      //   },
-      //   // Next.js will attempt to re-generate the page:
-      //   // - When a request comes in
-      //   // - At most once every 10 seconds
-      //   revalidate: 10, // In seconds
-      // }
+        let resUser = await buscaUser.json()
+        setCurrentUser({
+          email: resUser.email,
+          matricula: resUser.matricula,
+          token: resUser.token,
+        })
+        setMensagens(true)
       } catch (error) {
         console.log(error.message);
       }
