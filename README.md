@@ -29,3 +29,6 @@ No signUp nós criamos um usuário/funcionário! Existe um novo banco de dados n
 Boa parte do código foi limpado! Fica a sugestão de utilizar a pasta functions dentro de Firebase dentro de components para fazer o envio das mensagens e coisas do banco!
 
 01/03 - Usar as Busca email como parâmetro para substituir nas páginas de alert, signup, login ....
+02/03 - Ajustamos algumas funções novas, talvez ainda falte o login, tbm percebemos que pesquisa poderia ser um componente montado numa página de home!
+Isso quer dizer, podemos melhorar o acesso e o push das rotas dependendo do cargo da pessoa!
+Falta montar as mensagens como um select!
