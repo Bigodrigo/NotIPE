@@ -37,61 +37,84 @@ const SignupPage = () => {
 
 
 
-  const onSubmit = async () => {
-    try {
-      if (!email || !password || !confirmPassword || !nome ) {
-        setErro('Por favor preencha todos os campos')
-      } else if (password !== confirmPassword) {
-        setErro('As senhas informadas não são iguais.')
-      } else if ( cargo == 'Cargo') {
-        setErro('Por favor, escolha o seu cargo')
-      }
-      else {
-        await createUserWithEmailAndPassword(auth, email, password)
-          .then(async (usercredentials) => {
-            const docRef = doc(db, 'funcionarios', usercredentials.user.uid).withConverter(funcionarioConverter)
-            await setDoc(docRef, new Funcionario(nome, email, cargo))
-              .then(() => {
-                router.push("/dashboard");
-              })
-          })
-      }
+  // const onSubmit = async () => {
+  //   try {
+  //     if (!email || !password || !confirmPassword || !nome ) {
+  //       setErro('Por favor preencha todos os campos')
+  //     } else if (password !== confirmPassword) {
+  //       setErro('As senhas informadas não são iguais.')
+  //     } else if ( cargo == 'Cargo') {
+  //       setErro('Por favor, escolha o seu cargo')
+  //     }
+  //     else {
+  //       await createUserWithEmailAndPassword(auth, email, password)
+  //         .then(async (usercredentials) => {
+  //           const docRef = doc(db, 'funcionarios', usercredentials.user.uid).withConverter(funcionarioConverter)
+  //           await setDoc(docRef, new Funcionario(nome, email, cargo))
+  //             .then(() => {
+  //               router.push("/dashboard");
+  //             })
+  //         })
+  //     }
 
 
 
-    } catch (error) {
-      console.log(error.code)
-      switch (error.code) {
+  //   } catch (error) {
+  //     console.log(error.code)
+  //     switch (error.code) {
 
-        case 'auth/missing-email':
-          setErro('Digite seu email, por favor.')
-          break
-        case 'auth/invalid-email':
-          setErro('E-mail inválido.')
-          break
-        case 'auth/email-already-in-use':
-          setErro('Este e-mail já está sendo utilizado em outra conta.')
-          break
-        case 'auth/internal-error':
-          setErro('Digite sua senha, por favor.')
-          break
-        case 'auth/wrong-password':
-          setErro('Senha inválida.')
-          break
-        case 'auth/weak-password':
-          setErro('Senha muito fraca. Por favor utilize outra senha.')
-          break
-        case 'auth/user-not-found':
-          setErro('Usuário não encontrado.')
-          break
-        default:
-          setErro('Ocorreu um erro inesperado. Tente novamente mais tarde.')
-          break
-      }
+  //       case 'auth/missing-email':
+  //         setErro('Digite seu email, por favor.')
+  //         break
+  //       case 'auth/invalid-email':
+  //         setErro('E-mail inválido.')
+  //         break
+  //       case 'auth/email-already-in-use':
+  //         setErro('Este e-mail já está sendo utilizado em outra conta.')
+  //         break
+  //       case 'auth/internal-error':
+  //         setErro('Digite sua senha, por favor.')
+  //         break
+  //       case 'auth/wrong-password':
+  //         setErro('Senha inválida.')
+  //         break
+  //       case 'auth/weak-password':
+  //         setErro('Senha muito fraca. Por favor utilize outra senha.')
+  //         break
+  //       case 'auth/user-not-found':
+  //         setErro('Usuário não encontrado.')
+  //         break
+  //       default:
+  //         setErro('Ocorreu um erro inesperado. Tente novamente mais tarde.')
+  //         break
+  //     }
+  //   }
+  //   //}).catch((error) => {console.log(error)});
+
+  // };
+
+
+  const onSubmit = async ()=>{
+    try{
+        const res = await fetch('/api/functions/CriarFuncionario',{
+          method:'POST',
+          body:JSON.stringify({
+            email:email,
+            senha:password,
+            nome:nome,
+            cargo:cargo,
+          }),
+          headers: new Headers({
+            'Content-Type': 'application/json; charset=UTF-8'
+        })
+        }
+        );
+        console.log('deu')
+    }catch(erro){
+      console.log(erro)
     }
-    //}).catch((error) => {console.log(error)});
+  }
 
-  };
 
 
   return (

@@ -31,18 +31,18 @@ export const AuthContextProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const signUp = (email, password) => {
-    //pode ter problema?
-    createUserWithEmailAndPassword(auth, email, password)
-    .then(async(userCredencial) => {
-      let user = userCredencial.user;
-      const uid = user.uid;
-      console.log(uid)
-      // const docRef = doc(db,'users',uid).withConverter(userConverter)
-      // await setDoc(docRef, new User(email))
-    })
-    return uid
-  };
+  // const signUp = (email, password) => {
+  //   //pode ter problema?
+  //   createUserWithEmailAndPassword(auth, email, password)
+  //   .then(async(userCredencial) => {
+  //     let user = userCredencial.user;
+  //     const uid = user.uid;
+  //     console.log(uid)
+  //     // const docRef = doc(db,'users',uid).withConverter(userConverter)
+  //     // await setDoc(docRef, new User(email))
+  //   })
+  //   return uid
+  // };
 
   const logIn = (email, password) => {
     signInWithEmailAndPassword(auth, email, password).then(async(userCredential) => {
@@ -70,10 +70,10 @@ export const AuthContextProvider = ({ children }) => {
     await signOut(auth);
   };
 
-  const changePesquisa = async (input) => {
-    setPesquisa(input)
-    return pesquisa;
-  };
+  // const changePesquisa = async (input) => {
+  //   setPesquisa(input)
+  //   return pesquisa;
+  // };
 
   const [{ email, matricula, token, uid }, setCurrentUser] = useState({
     email:'',
@@ -89,7 +89,7 @@ export const AuthContextProvider = ({ children }) => {
   const [mensagem, setMensagem] = useState('Testando no Context!')
 
   return (
-    <AuthContext.Provider value={{ user, signUp, logIn, logOut, changePesquisa, email, matricula, token, uid, setCurrentUser, mensagem, setMensagem }}>
+    <AuthContext.Provider value={{ user,  logIn, logOut,  email, matricula, token, uid, setCurrentUser, mensagem, setMensagem }}>
       {loading ? null : children}
     </AuthContext.Provider>
   );
