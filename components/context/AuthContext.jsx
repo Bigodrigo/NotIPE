@@ -48,12 +48,12 @@ export const AuthContextProvider = ({ children }) => {
     signInWithEmailAndPassword(auth, email, password).then(async(userCredential) => {
       let user = userCredential.user;
           const uid = user.uid;
-          const docRef = doc(db,uid,'Infos').withConverter(userConverter)
+          const docRef = doc(db,'users',uid).withConverter(userConverter)
           const testeSnap = await getDoc(docRef);
           //console.log(uid, 'Precisa ter mudado!!')
           if (testeSnap.exists()) {
             const user = testeSnap.data();
-            //console.log(user.toString());
+            console.log(user.toString());
             // setCurrentUser({
             // email: user.email,
             // name: user.name,

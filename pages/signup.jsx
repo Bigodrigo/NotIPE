@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-//import { useAuth } from "../components/context/AuthContext";
 import { useRouter } from "next/router";
-// import auth from '@react-native-firebase/auth'
-// import firestore from '@react-native-firebase/firestore'
-import { getDoc, collection, doc, setDoc, Timestamp, set } from "firebase/firestore";
-import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { db, auth } from "../components/Firebase/firebase";
-import { Funcionario, funcionarioConverter, User, userConverter } from "../components/Firebase/converter";
 
 const SignupPage = () => {
   const [nome, setNome] = useState('');
@@ -17,7 +9,6 @@ const SignupPage = () => {
   const [cargo, setCargo] = useState('Cargo');
   const [aberto, setAberto] = useState(false);
   const [erro, setErro] = useState('');
-  //const { signUp } = useAuth();
 
   const router = useRouter();
 
@@ -32,68 +23,6 @@ const SignupPage = () => {
     setAberto(false)
     setCargo(C)
   }
-
-
-
-
-
-  // const onSubmit = async () => {
-  //   try {
-  //     if (!email || !password || !confirmPassword || !nome ) {
-  //       setErro('Por favor preencha todos os campos')
-  //     } else if (password !== confirmPassword) {
-  //       setErro('As senhas informadas não são iguais.')
-  //     } else if ( cargo == 'Cargo') {
-  //       setErro('Por favor, escolha o seu cargo')
-  //     }
-  //     else {
-  //       await createUserWithEmailAndPassword(auth, email, password)
-  //         .then(async (usercredentials) => {
-  //           const docRef = doc(db, 'funcionarios', usercredentials.user.uid).withConverter(funcionarioConverter)
-  //           await setDoc(docRef, new Funcionario(nome, email, cargo))
-  //             .then(() => {
-  //               router.push("/dashboard");
-  //             })
-  //         })
-  //     }
-
-
-
-  //   } catch (error) {
-  //     console.log(error.code)
-  //     switch (error.code) {
-
-  //       case 'auth/missing-email':
-  //         setErro('Digite seu email, por favor.')
-  //         break
-  //       case 'auth/invalid-email':
-  //         setErro('E-mail inválido.')
-  //         break
-  //       case 'auth/email-already-in-use':
-  //         setErro('Este e-mail já está sendo utilizado em outra conta.')
-  //         break
-  //       case 'auth/internal-error':
-  //         setErro('Digite sua senha, por favor.')
-  //         break
-  //       case 'auth/wrong-password':
-  //         setErro('Senha inválida.')
-  //         break
-  //       case 'auth/weak-password':
-  //         setErro('Senha muito fraca. Por favor utilize outra senha.')
-  //         break
-  //       case 'auth/user-not-found':
-  //         setErro('Usuário não encontrado.')
-  //         break
-  //       default:
-  //         setErro('Ocorreu um erro inesperado. Tente novamente mais tarde.')
-  //         break
-  //     }
-  //   }
-  //   //}).catch((error) => {console.log(error)});
-
-  // };
-
-
   const onSubmit = async () => {
     try {
       if (!email || !password || !confirmPassword || !nome) {
@@ -123,10 +52,9 @@ const SignupPage = () => {
 
         )
         setErro('');
-       
+  
         let resERR = await res.json()
-        // console.log(resERR)
-        // console.log(res.status)
+
         if (res.status == 400) {
           switch (resERR) {
 
@@ -159,12 +87,10 @@ const SignupPage = () => {
               break
           }
         }if(res.status == 200){
-            router.push("/dashboard");
+            router.push("/#");
             setErro('');
         }
-
       }
-
     } catch (erro) {
       console.log(erro)
     }
