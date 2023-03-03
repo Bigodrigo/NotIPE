@@ -32,3 +32,5 @@ Boa parte do código foi limpado! Fica a sugestão de utilizar a pasta functions
 02/03 - Ajustamos algumas funções novas, talvez ainda falte o login, tbm percebemos que pesquisa poderia ser um componente montado numa página de home!
 Isso quer dizer, podemos melhorar o acesso e o push das rotas dependendo do cargo da pessoa!
 Falta montar as mensagens como um select!
+
+03/03 - Hoje o SignIn é feito fora do ADMIN!! Nesse momento criamos um busca funcionário e dependendo do usuário ela gera uma página ou outra!

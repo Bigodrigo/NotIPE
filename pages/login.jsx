@@ -1,20 +1,37 @@
 import React, { useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
 import { useAuth } from "../components/context/AuthContext";
 import { useRouter } from "next/router";
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  //const [erro, setErro] = useState('');
+  const { setUid, setCurrentFuncionario } = useAuth();
   const { logIn } = useAuth();
   const router = useRouter();
 
   const onSubmit = async () => {
     try {
-      await logIn(email, password);
+      const teste = await logIn(email, password);
+      console.log(teste)
       // router.push("/dashboard");
-      router.push("/pesquisa");
+      //recebe uid?!
+      setUid(teste)
+      let buscaFuncionario = await fetch('/api/functions/BuscaFuncionario', {
+        method: 'POST',
+        body: teste,
+      })
+      let resFuncionario = await buscaFuncionario.json()
+      setCurrentFuncionario({
+        cargo: resFuncionario.cargo,
+        emailFuncionario: resFuncionario.email,
+        nome: resFuncionario.nome,
+      })
+      if (resFuncionario.cargo == 'Financeiro') {
+        router.push("/pesquisa");  
+      }
+      else {
+        router.push("/dashboard");  
+      }
     } catch (error) {
       console.log(error.message);
     }
