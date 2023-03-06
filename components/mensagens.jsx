@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAuth } from "./context/AuthContext";
 import { FormProvider, useForm } from "react-hook-form";
-import ProtectedRoute from "./ProtectedRoute";
-import { query, getDocs, collection, doc, where, FieldPath } from "firebase/firestore";
-import { db } from "./Firebase/firebase";
 import Alert from "./alert"
-import { conversaConverter } from "./Firebase/converter";
 
 const Mensagens = () => {
   const [show, setShow] = useState(false)
-  const { email, matricula, token, setMensagem, uid } = useAuth();
+  const { emailUser, matricula, token, setMensagem, uid } = useAuth();
 
   async function fetchData() {
       let request = new Request('/api/functions/BuscaMensagens', {
@@ -34,11 +30,6 @@ const Mensagens = () => {
 
     const onSubmit = async (data) => {
       try {
-        // const docRef = doc(db,'mensagens','wLqiBZRUk1Qwl1F5syhMfEvkUAq2wLqiBZRUk1Qwl1F5syhMfEvkUAq2');
-        // //console.log()
-        // await setDoc(docRef,data);
-          //let r = docSnap.data()
-          //console.log(r)
           salvaMensagem(data);
           setShow(true)
       } catch (error) {
@@ -61,7 +52,7 @@ const Mensagens = () => {
                 </div>
                 <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                   <dt className="text-sm font-medium text-gray-500">Email address</dt>
-                  <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{email}</dd>
+                  <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{emailUser}</dd>
                 </div>
                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                   <dt className="text-sm font-medium text-gray-500">Último Token</dt>

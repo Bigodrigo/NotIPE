@@ -1,17 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { useAuth } from "../components/context/AuthContext";
 import Mensagens from "../components/mensagens";
-//aproveitar q ja tem context e empurrar o usuário?!?! A matricula da pessoa?!
-import { saveMessagingDeviceToken } from "../components/Firebase/messaging"
+
 
 
 function PesquisaPage ({segurado}) {
   const [mensagens, setMensagens] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const { setUid, setCurrentUser } = useAuth();
-  //const router = useRouter();
     const methods = useForm({ mode: "onBlur" });
     const {
       register,
@@ -36,7 +34,7 @@ function PesquisaPage ({segurado}) {
         })
         let resUser = await buscaUser.json()
         setCurrentUser({
-          email: resUser.email,
+          emailUser: resUser.email,
           matricula: resUser.matricula,
           token: resUser.token,
         })
@@ -60,16 +58,11 @@ function PesquisaPage ({segurado}) {
                 <span className="text-gray-500 sm:text-sm"> </span>
               </div>
               <input
-                // {...register("matricula", { required: "Matricula is required" })}
                 {...register("input", { required: "Input is required" })}
-                // type="text"
-                // name="matricula"
-                // id="matricula"
                 type="text"
                 name="input"
                 id="input"
                 className="block w-full rounded-md border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                //placeholder="00.00000000.00.0"
                 placeholder="xxxx@xxxx.com"
               />
               <div className="absolute inset-y-0 right-0 flex items-center">
