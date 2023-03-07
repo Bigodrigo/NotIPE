@@ -54,6 +54,7 @@ const SignupPage = () => {
         setErro('');
   
         let resERR = await res.json()
+        console.log(resERR)
 
         if (res.status == 400) {
           switch (resERR) {

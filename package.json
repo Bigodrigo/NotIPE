@@ -9,6 +9,8 @@
     "@react-native-async-storage/async-storage": "^1.17.11",
     "firebase": "^9.17.1",
     "firebase-admin": "^11.5.0",
+    "flowbite": "^1.6.3",
+    "flowbite-react": "^0.4.1",
     "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0",

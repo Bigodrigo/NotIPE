@@ -27,7 +27,7 @@ const LoginPage = () => {
         nome: resFuncionario.nome,
       })
       if (resFuncionario.cargo == 'Financeiro') {
-        router.push("/pesquisa");  
+        router.push("/");  
       }
       else {
         router.push("/dashboard");  
