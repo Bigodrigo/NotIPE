@@ -13,6 +13,7 @@ export default async function handler(req, res) {
                 android: {
                     channelId: 'default',
                     vibrationPattern: [300, 500],
+                    smallIcon: 'icon',
                     actions: [
                         {
                             title: 'Responder',
